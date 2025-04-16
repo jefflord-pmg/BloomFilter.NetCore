@@ -208,6 +208,11 @@ public class FilterRedis : Filter
         return (await ContainsAsync(elements)).All(e => e);
     }
 
+    public override byte[] Serialize()
+    {
+        throw new NotImplementedException("Serialize is only for FilterMemory Class");
+    }
+
     /// <summary>
     /// Removes all elements from the filter
     /// </summary>

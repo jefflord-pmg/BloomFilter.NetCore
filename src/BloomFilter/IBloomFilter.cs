@@ -100,4 +100,10 @@ public interface IBloomFilter : IDisposable
     /// <param name="data"></param>
     /// <returns></returns>
     long[] ComputeHash(ReadOnlySpan<byte> data);
+
+    /// <summary>
+    /// Serializes the Bloom filter to a byte array.
+    /// </summary>
+    /// <returns>A byte array representing the serialized state of the Bloom filter.</returns>
+    byte[] Serialize();
 }

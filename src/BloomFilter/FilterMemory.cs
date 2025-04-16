@@ -20,6 +20,8 @@ public class FilterMemory : Filter
 
     private static readonly ValueTask Empty = new();
 
+    private FilterMemoryOptions options;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="FilterMemory"/> class.
     /// </summary>
@@ -28,6 +30,7 @@ public class FilterMemory : Filter
         : base(options.Name, options.ExpectedElements, options.ErrorRate, HashFunction.Functions[options.Method])
     {
 
+        this.options = options;
         if (options.Buckets is not null)
         {
             Import(options.Buckets);
@@ -74,7 +77,30 @@ public class FilterMemory : Filter
     public FilterMemory(string name, long expectedElements, double errorRate, HashFunction hashFunction)
         : base(name, expectedElements, errorRate, hashFunction)
     {
+
+        options = new FilterMemoryOptions();
+        options.Name = name;
+        options.ExpectedElements = expectedElements;
+        options.ErrorRate = errorRate;
+        foreach (var x in HashFunction.Functions)
+        {
+            if (x.Value.Equals(hashFunction))
+            {
+                options.Method = x.Key;
+            }
+        }
         Init();
+    }
+
+    /// <summary>
+    /// Serializes the current state of the filter into a byte array.
+    /// </summary>
+    /// <returns>A byte array representing the serialized state of the filter.</returns>
+    public override byte[] Serialize()
+    {
+        options.Buckets = _buckets;
+        var bytes = options.Serialize();
+        return bytes;
     }
 
     /// <summary>

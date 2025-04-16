@@ -185,6 +185,10 @@ namespace BloomFilter.EasyCaching
             return Contains(elements).All(e => e);
         }
 
+        public override byte[] Serialize()
+        {
+            throw new NotImplementedException("Serialize is only for FilterMemory Class");
+        }
         public override async ValueTask<bool> AllAsync(IEnumerable<byte[]> elements)
         {
             return (await ContainsAsync(elements)).All(e => e);

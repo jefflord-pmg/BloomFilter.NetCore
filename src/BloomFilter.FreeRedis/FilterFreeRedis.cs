@@ -61,6 +61,11 @@ namespace BloomFilter.FreeRedis
             return results.Any(a => !a);
         }
 
+        public override byte[] Serialize()
+        {
+            throw new NotImplementedException("Serialize is only for FilterMemory Class");
+        }
+
         public override IList<bool> Add(IEnumerable<byte[]> elements)
         {
             var addHashs = new List<long>();

@@ -253,4 +253,9 @@ public abstract class Filter : IBloomFilter
     /// Dispose
     /// </summary>
     public abstract void Dispose();
+
+    /// <summary>
+    /// Serialize
+    /// </summary>
+    public abstract byte[] Serialize();
 }
